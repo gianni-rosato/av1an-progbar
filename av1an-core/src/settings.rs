@@ -397,9 +397,8 @@ impl EncodeArgs {
                 if new > frame {
                   if self.verbosity == Verbosity::Normal {
                     inc_bar(new - frame);
-                    println!("Total frames: {}", get_position());
                     if let Some(len) = get_length() {
-                      println!("Total length: {}", len);
+                      println!("Encoding:{}/{}", get_position(), len);
                     }
                   } else if self.verbosity == Verbosity::Verbose {
                     inc_mp_bar(new - frame);
