@@ -122,9 +122,7 @@ pub fn scene_detect(
     let callback = callback.map(|cb| {
       |frames, _keyframes| {
         cb(frames + frames_read);
-        if verbosity == Verbosity::Verbose {
-          println!("{frames}/{total_frames}");
-        }
+        println!("{frames}/{total_frames}");
       }
     });
     let sc_result = if bit_depth > 8 {
