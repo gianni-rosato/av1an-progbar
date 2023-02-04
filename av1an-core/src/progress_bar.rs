@@ -292,3 +292,9 @@ pub fn update_progress_bar_estimates(
     update_mp_bar_info(kbps, HumanBytes(est_size as u64));
   }
 }
+
+pub fn get_position() {
+  if let Some(pb) = PROGRESS_BAR.get() {
+    pb.position();
+  }
+}

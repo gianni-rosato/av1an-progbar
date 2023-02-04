@@ -31,6 +31,7 @@ use crate::parse::valid_params;
 use crate::progress_bar::{
   finish_progress_bar, inc_bar, inc_mp_bar, init_multi_progress_bar, init_progress_bar,
   reset_bar_at, reset_mp_bar_at, update_mp_chunk, update_mp_msg, update_progress_bar_estimates,
+  get_position
 };
 use crate::scene_detect::av_scenechange_detect;
 use crate::scenes::{Scene, ZoneOptions};
@@ -377,8 +378,6 @@ impl EncodeArgs {
         let mut buf = Vec::with_capacity(128);
         let mut enc_stderr = String::with_capacity(128);
 
-        let mut total_frames = 0;
-
         while let Ok(read) = reader.read_until(b'\r', &mut buf).await {
           if read == 0 {
             break;
@@ -398,8 +397,8 @@ impl EncodeArgs {
                 if new > frame {
                   if self.verbosity == Verbosity::Normal {
                     inc_bar(new - frame);
-                    total_frames += new - frame;
-                    println!("Total frames {total_frames}");
+                    let bar_progress = get_position();
+                    println!("Total frames: {bar_progress}");
                   } else if self.verbosity == Verbosity::Verbose {
                     inc_mp_bar(new - frame);
                   }
