@@ -398,7 +398,7 @@ impl EncodeArgs {
                   if self.verbosity == Verbosity::Normal {
                     inc_bar(new - frame);
                     let bar_progress = get_position();
-                    println!("Total frames: {bar_progress}");
+                    println!("Total frames: {:?}", bar_progress);
                   } else if self.verbosity == Verbosity::Verbose {
                     inc_mp_bar(new - frame);
                   }
