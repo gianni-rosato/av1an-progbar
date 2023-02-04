@@ -396,6 +396,7 @@ impl EncodeArgs {
                 if new > frame {
                   if self.verbosity == Verbosity::Normal {
                     inc_bar(new - frame);
+                    println!("new {new} frame {frame}");
                   } else if self.verbosity == Verbosity::Verbose {
                     inc_mp_bar(new - frame);
                   }
