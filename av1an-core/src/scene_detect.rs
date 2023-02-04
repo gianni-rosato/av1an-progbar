@@ -122,6 +122,7 @@ pub fn scene_detect(
     let callback = callback.map(|cb| {
       |frames, _keyframes| {
         cb(frames + frames_read);
+        println!("Scene Detection:{frames}/{total_frames}");
       }
     });
     let sc_result = if bit_depth > 8 {
