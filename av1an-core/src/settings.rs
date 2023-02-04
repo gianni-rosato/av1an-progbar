@@ -377,6 +377,8 @@ impl EncodeArgs {
         let mut buf = Vec::with_capacity(128);
         let mut enc_stderr = String::with_capacity(128);
 
+        let mut total_frames = 0;
+
         while let Ok(read) = reader.read_until(b'\r', &mut buf).await {
           if read == 0 {
             break;
@@ -396,7 +398,8 @@ impl EncodeArgs {
                 if new > frame {
                   if self.verbosity == Verbosity::Normal {
                     inc_bar(new - frame);
-                    println!("new {new} frame {frame}");
+                    total_frames += new - frame;
+                    println!("Total frames {total_frames}");
                   } else if self.verbosity == Verbosity::Verbose {
                     inc_mp_bar(new - frame);
                   }
