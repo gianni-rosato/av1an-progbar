@@ -293,8 +293,16 @@ pub fn update_progress_bar_estimates(
   }
 }
 
-pub fn get_position() {
+pub fn get_position() -> u64 {
   if let Some(pb) = PROGRESS_BAR.get() {
-    pb.position();
+    return pb.position();
   }
+  return 0;
+}
+
+pub fn get_length() -> Option<u64> {
+  if let Some(pb) = PROGRESS_BAR.get() {
+    return pb.length();
+  }
+  return None;
 }
