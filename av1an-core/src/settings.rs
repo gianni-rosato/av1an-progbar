@@ -32,6 +32,7 @@ use crate::parse::valid_params;
 use crate::progress_bar::{
   finish_progress_bar, inc_bar, inc_mp_bar, init_multi_progress_bar, init_progress_bar,
   reset_bar_at, reset_mp_bar_at, update_mp_chunk, update_mp_msg, update_progress_bar_estimates,
+  get_position, get_length
 };
 use crate::scene_detect::av_scenechange_detect;
 use crate::scenes::{Scene, ZoneOptions};
@@ -385,6 +386,9 @@ impl EncodeArgs {
                 if new > frame {
                   if self.verbosity == Verbosity::Normal {
                     inc_bar(new - frame);
+                    if let Some(len) = get_length() {
+                      println!("Encoding:{}/{}", get_position(), len);
+                    }
                   } else if self.verbosity == Verbosity::Verbose {
                     inc_mp_bar(new - frame);
                   }
